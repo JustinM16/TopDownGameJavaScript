@@ -2,74 +2,48 @@ var screen1 = document.getElementById('screen1');
 var context = screen1.getContext('2d');
 var screen2 = document.getElementById('screen2');
 var context2 = screen2.getContext('2d');
-
-
-context.fillStyle = "#FFFFFF";
+context.fillStyle = "#bdc3c7";
 context.fillRect(0, 0, screen1.width, screen1.height);
 var imgData;
+var music = new Audio('Song.wav');
+var shot = new Audio('Shot.wav');
+var EOG = new Audio('EOG.mp3');
 
 var rect = screen1.getBoundingClientRect();
 var mouse;
 
-var ClipSize = 15;
-var NumBulls = 0;
-
-
-
-
 var leftDown, rightDown, upDown, downDown = 0;
 var leftUp, rightUp, upUp, downUp = 0;
 
-function Bullet() {
-	this.Livetime = 0,
-	this.draw = 0,
-	this.lifeSpan = 30,
-	this.ySlope = (mouse.y - Char.posY),
-	this.xSlope = (mouse.x - Char.posX),
-	this.Slope = this.ySlope/this.xSlope,
-	this.yEnd = mouse.y,
-	this.xEnd = mouse.x,
-	this.radius = 2,
-	this.Speed = 5,
-	this.mag = Math.sqrt((this.xSlope*this.xSlope)+(this.ySlope*this.ySlope)),
-	this.xSpeed = (this.xSlope/this.mag)*this.Speed,
-	this.ySpeed = (this.ySlope/this.mag)*this.Speed,
-	this.xOffSet = (Char.radius-10)*this.xSpeed,
-	this.yOffSet = (Char.radius-10)*this.ySpeed,
-	this.xStart = Char.posX + this.xOffSet,
-	this.yStart = Char.posY + this.yOffSet;
+var Bullets = [];
+
+var kills = 0;
+
+var Char = new CharCreate(0, screen1.width, screen1.height);
+var Enemys = [];
+var Level = 1;
+var speed = 1;
+var color = "#3498db";
+
+
+
+
+function InitGame () {
+	leftDown, rightDown, upDown, downDown = 0;
+	leftUp, rightUp, upUp, downUp = 0;
+	music.loop = true;
+	music.play();
+	Bullets = [];
+
+	kills = 0;
+	Level = 1;
+
+	Char = new CharCreate(0, screen1.width, screen1.height);
+	Enemys = [];
+	document.addEventListener("keydown", CheckKeyDown);
+	document.addEventListener("keyup", CheckKeyUp);
+	document.addEventListener("mousedown", Shoot);
 }
-
-function CharCreate (Id) {
-	this.posX =(screen1.width/2),
-	this.posY =(screen1.height/2),
-	this.radius =15,
-	this.Speed =10,
-	this.shotFired =0;
-	this.Id = Id;
-};
-
-function Enemy (Id, posX, posY) {
-	this.posX = posX,
-	this.posY = posY,
-	this.xSlope = (Char.posX - this.posX),
-	this.ySlope = (Char.posY - this.posY),
-	this.mag = Math.sqrt((this.xSlope*this.xSlope)+(this.ySlope*this.ySlope)),
-	this.Speed = 1,
-	this.xSpeed = (this.xSlope/this.mag)*this.Speed,
-	this.ySpeed = (this.ySlope/this.mag)*this.Speed,
-	this.distFromBullet = 0,
-	this.radius = 30,
-	this.Id = Id;
-};
-
-
-
-var Char = new CharCreate(0);
-var En = [2];
-En[0] = new Enemy(0, 0, 0);
-En[1] = new Enemy(1, 1000, 1000);
-var shot = [ClipSize];
 
 
 function CheckKeyDown(e) {
@@ -136,60 +110,81 @@ function GetFrame(){
 
 function ClearFrame(){
 	context.putImageData(imgData, 0, 0);
+
+}
+
+function DrawKills () {
+	context.font = "30px Arial";
+	context.fillStyle = "#2c3e50";
+	context.fillText("Kills: " + kills, 10, 50);
+}
+
+function DrawLevels () {
+	context.font = "30px Arial";
+	context.fillStyle = "#2c3e50";
+	context.fillText("Level: " + Level, screen1.width - 125, 50);
 }
 
 function MoveChar(){
 	if (leftDown){
-		Char.posX = Char.posX - 1;
+		Char.MoveLeft();
 	}
 	if (rightDown){
-		Char.posX = Char.posX + 1;
+		Char.MoveRight();
 	}
 	if (upDown){
-		Char.posY = Char.posY - 1;
+		Char.MoveDown();
 	}
 	if (downDown){
-		Char.posY = Char.posY + 1;
+		Char.MoveUp();
 	}
 }
 
 function DrawChar(){
-	context.beginPath();
-	if (Char.posX < Char.radius){
-		Char.posX = Char.radius;
-	}
-	if (Char.posY < Char.radius){
-		Char.posY = Char.radius;
-	}
-	if (Char.posX > screen1.width - Char.radius){
-		Char.posX = screen1.width - Char.radius;
-	}
-	if (Char.posY > screen1.height - Char.radius){
-		Char.posY = screen1.height - Char.radius;
-	}
-	context.arc(Char.posX, Char.posY, Char.radius, 0, 2*Math.PI);
-	context.stroke();
+	Char.DrawChar();
 }
 
-function DrawEnemy(){
-	for (i = 0; i < En.length; i++){
-		context.beginPath();
-		context.arc(En[i].posX, En[i].posY, En[i].radius, 0, 2*Math.PI);
-		context.stroke();
+function Shoot(){
+	Bullets.push(new Bullet(mouse.x, mouse.y, Char.posX, Char.posY));
+	if (Char.Life){
+		shot.play();
+		shot.currentTime = 0;
 	}
 }
 
-function EnemyMove(){
-	for (i = 0; i < En.length; i++){
-		En[i].posX = En[i].posX + En[i].xSpeed;
-		En[i].posY = En[i].posY + En[i].ySpeed;
-		En[i].xSlope = (Char.posX - En[i].posX);
-		En[i].ySlope = (Char.posY - En[i].posY);
-		En[i].mag = Math.sqrt((En[i].xSlope*En[i].xSlope)+(En[i].ySlope*En[i].ySlope));
-		En[i].xSpeed = (En[i].xSlope/En[i].mag)*En[i].Speed;
-		En[i].ySpeed =(En[i].ySlope/En[i].mag)*En[i].Speed;
-	}
+function DrawBullets(){
+	for (i = Bullets.length - 1; i >= 0; i--){
+		Bullets[i].Move();
+		Bullets[i].DrawBullet();
+		Bullets[i].Life = Bullets[i].Life + 1;
+		for (k = Enemys.length - 1; k >= 0; k--){
+			if (Bullets[i].hits(Enemys[k])){
+				Enemys[k].Life = 0;
+				Bullets[i].hit = 1;
+				break;
+			}
+		}
 
+		if (Bullets[i].Life > 70 || Bullets[i].hit == 1){
+			Bullets.splice(0, 1);
+		}
+
+	}
+}
+
+function DrawEnemys(){
+	for (j = Enemys.length - 1; j >= 0; j--){
+		Enemys[j].Move();
+		Enemys[j].DrawSelf();
+		Enemys[j].UpdateDir(Char.posX, Char.posY);
+		if (Char.checkHit(Enemys[j])){
+			Char.Life = 0;
+		}
+		if (Enemys[j].Life != 1){
+			kills = kills + 1;
+			Enemys.splice(j, 1);
+		}
+	}
 }
 
 function GetMousePosition(e){
@@ -199,52 +194,71 @@ function GetMousePosition(e){
 		};
 }
 
-function Shoot(){
-	Char.shotFired = 1;
-	shot[NumBulls] = new Bullet();
-	shot[NumBulls].draw = 1;
-	NumBulls = NumBulls + 1;
-	if (NumBulls == ClipSize){
-		NumBulls = 0;
+
+function SpawnEnemy() {
+	if (kills == 30){
+		speed = 2;
+		Level = 2;
+		color = "#e67e22";
+	}else if (kills == 60){
+		speed = 2.5;
+		Level = 3;
+		color = "#2ecc71";
+	}else if (kills == 100){
+		speed = 3;
+		Level = 4;
+		color = "#9b59b6";
+	}else {
+		Enemys.push(new EnemyCreate(Char.posX, Char.posY, (Math.random()*(3000)-1500), (Math.random()*(3000)-1500), speed, color));
 	}
 }
 
-function unShoot(){
-	Char.shotFired = 0;
+function GameOver() {
+	context.font = "50px Arial";
+	context.fillStyle = "#2c3e50";
+	context.fillText("GAME OVER", screen1.width/2 - 150, screen1.height/2);
+	context.fillStyle = "#2c3e50";
+	context.font = "20px Arial";
+	context.fillText("Refresh To Play Again", screen1.width/2 - 85, screen1.height/2 + 20);
+	context2.drawImage(screen1, 0, 0)
+	clearInterval(IntervalID);
+	music.pause();
+	EOG.currentTime = 1;
+	EOG.play();
+
 }
 
-function drawBullets() {
-	for (i = 0; i < shot.length; i++){
-		if (shot[i].Livetime < shot[i].lifeSpan){
-			context.beginPath();
-			context.arc(shot[i].xStart, shot[i].yStart, shot[i].radius, 0, 2*Math.PI);
-			context.stroke();
-			shot[i].xStart = shot[i].xStart + shot[i].xSpeed;
-			shot[i].yStart = shot[i].yStart + shot[i].ySpeed;
-			shot[i].Livetime++;
-		}
-	}
-} 
+function Resize(){
+	rect = screen1.getBoundingClientRect();
+	console.log("resized");
+}
+
 
 
 
 function GameLoop(){
 	ClearFrame();
+	DrawKills();
+	DrawLevels();
 	MoveChar();
 	DrawChar();
-	DrawEnemy();
-	EnemyMove();
-	if(Char.shotFired) {
-		drawBullets();
+	DrawBullets();
+	DrawEnemys();
+	if (!Char.Life){
+		GameOver();
+	}
+	if (Enemys.length < 10){
+		SpawnEnemy();
 	}
 	context2.drawImage(screen1, 0, 0);
 }
 
-document.addEventListener("keydown", CheckKeyDown);
-document.addEventListener("keyup", CheckKeyUp);
+
 document.addEventListener("mousemove", GetMousePosition);
-document.addEventListener("mousedown", Shoot);
+window.addEventListener("resize", Resize);
 
 
+InitGame();
 GetFrame();
-setInterval(GameLoop, 14);
+var IntervalID = setInterval(GameLoop, 14);
+ClearFrame();
