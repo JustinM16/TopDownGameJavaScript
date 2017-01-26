@@ -1,7 +1,7 @@
 # TopDownGameJavaScript
 # CLICK TO PLAY: https://justinm16.github.io/TopDownGameJavaScript/
 
-- All in game sound effects are not owned by me and are purly used as a demonstration of
+- All in game sound effects are not owned by me and are purely used as a demonstration of
   how a game like this would sound.
 
 ---------------------------------------------------------------------------------------------
