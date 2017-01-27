@@ -8,6 +8,9 @@ var imgData;
 var music = new Audio('Song.wav');
 var shot = new Audio('Shot.wav');
 var EOG = new Audio('EOG.mp3');
+shot.volume = .5;
+music.volume = .5;
+EOG.volume = .5;
 
 var rect = screen1.getBoundingClientRect();
 var mouse;
@@ -225,7 +228,7 @@ function GameOver() {
 	music.pause();
 	EOG.currentTime = 1;
 	EOG.play();
-
+	
 }
 
 function Resize(){
