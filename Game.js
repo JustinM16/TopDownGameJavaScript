@@ -28,6 +28,15 @@ var Level = 1;
 var speed = 1;
 var color = "#3498db";
 
+var RandomSayings = [];
+RandomSayings[0] = "Nobody likes you!";
+RandomSayings[1] = "The bigger, badder, better circle got you!";
+RandomSayings[2] = "It was never ment to be...";
+RandomSayings[3] = "YES, FINALLY ITS OVER!";
+RandomSayings[4] = "Was this worth time in your life?";
+RandomSayings[5] = "One day somthing nice will be said";
+RandomSayings[6] = "YOURE THE BEST";
+RandomSayings[7] = "BAAAAAAAAAAAAD";
 
 
 
@@ -223,13 +232,47 @@ function GameOver() {
 	context.fillStyle = "#2c3e50";
 	context.font = "20px Arial";
 	context.fillText("Refresh To Play Again", screen1.width/2 - 85, screen1.height/2 + 20);
+	SayMeanThings();
+
 	context2.drawImage(screen1, 0, 0)
+
 	clearInterval(IntervalID);
 	music.pause();
 	EOG.currentTime = 1;
 	EOG.play();
 	
 }
+
+function SayMeanThings() {
+	var SayNum = (Math.ceil(Math.random() * RandomSayings.length)) - 1;
+
+	if (SayNum == 0) {
+		context.font = "20px Arial";
+		context.fillText(RandomSayings[SayNum], screen1.width/2 - 75, screen1.height - 40);
+	}else if (SayNum == 1) {
+		context.font = "20px Arial";
+		context.fillText(RandomSayings[SayNum], screen1.width/2 - 160, screen1.height - 40);
+	}else if (SayNum == 2) {
+		context.font = "20px Arial";
+		context.fillText(RandomSayings[SayNum], screen1.width/2 - 90, screen1.height - 40);
+	}else if (SayNum == 3) {
+		context.font = "20px Arial";
+		context.fillText(RandomSayings[SayNum], screen1.width/2 - 100, screen1.height - 40);
+	}else if (SayNum == 4) {
+		context.font = "20px Arial";
+		context.fillText(RandomSayings[SayNum], screen1.width/2 - 130, screen1.height - 40);
+	}else if (SayNum == 5) {
+		context.font = "20px Arial";
+		context.fillText(RandomSayings[SayNum], screen1.width/2 - 140, screen1.height - 40);
+	}else if (SayNum == 6) {
+		context.font = "20px Arial";
+		context.fillText(RandomSayings[SayNum], screen1.width/2 - 75, screen1.height - 40);
+	}else if (SayNum == 7) {
+		context.font = "20px Arial";
+		context.fillText(RandomSayings[SayNum], screen1.width/2 - 75, screen1.height - 40);
+	}
+} 
+
 
 function Resize(){
 	rect = screen1.getBoundingClientRect();
