@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 8080;
+var path = require('path');
 
 
 app.use((request, response, next) => {
@@ -19,18 +20,9 @@ app.use((err, request, response, next) => {
 	next();
 });
 
-
-app.get('/', (request, response) => {
-	response.json({
-		chance: request.chance
-	});
-
-});
-
 app.listen(port, (err) => {
 	if(err) {
 		return console.log('somthing bad happend', err);
 	}
-
 	console.log('server is listening on ' + port);
-})
+});
