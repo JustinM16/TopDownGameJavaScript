@@ -279,9 +279,18 @@ function Resize(){
 	console.log("resized");
 }
 
+function EnterName(){
+	
+}
 
 
 
+
+
+
+
+
+//THE MAIN AREA OF THE GAME________________________________________
 function GameLoop(){
 	ClearFrame();
 	DrawKills();

@@ -28,12 +28,40 @@
 			border-style: solid;
 		}
 
+		#hiScores{
+			position: absolute;
+			top:650px;
+			left:0;
+			right:0;
+			margin: auto;
+			font-family: arial;
+			width: 400px;
+		}
+		td{
+			text-align: center;
+		}
+
 	</style>
 
 
 	<body>
 		<canvas id="screen1"></canvas>
 		<canvas id="screen2"></canvas>
+		
+		<table id="hiScores">
+			<tr>
+				<th>Position:</th>
+				<th>User:</th>
+				<th>Kills:</th>
+			</tr>
+		</table>
+		<form>
+			<label>User:</label>
+			<input></input>
+		</form>
+
+
+		<script type="text/javascript" src="TableSetup.js"></script>
 		<script type="text/javascript" src="Screen.js"></script>
 		<script type="text/javascript" src="Character.js"></script>
 		<script type="text/javascript" src="Bullet.js"></script>
