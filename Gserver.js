@@ -3,6 +3,8 @@ const app = express();
 const port = 8080;
 var path = require('path');
 
+app.use(express.static('Scripts'));
+app.use(express.static('Sounds'));
 
 app.use((request, response, next) => {
 	console.log(request.headers);
@@ -19,6 +21,13 @@ app.use((err, request, response, next) => {
 	response.status(500).send('Somthing broke!');
 	next();
 });
+
+
+app.get('/', (request, response) => {  
+  response.sendFile(path.join(__dirname + '/index.html'));
+});
+
+
 
 app.listen(port, (err) => {
 	if(err) {
