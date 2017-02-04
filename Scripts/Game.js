@@ -8,9 +8,14 @@ var imgData;
 var music = new Audio('Song.wav');
 var shot = new Audio('Shot.wav');
 var EOG = new Audio('EOG.mp3');
-shot.volume = .5;
+shot.volume = .3;
 music.volume = .5;
 EOG.volume = .5;
+var hasmoved = 0;
+
+var finalform = document.getElementById('score');
+var finalbutt = document.getElementById('subber');
+
 
 var rect = screen1.getBoundingClientRect();
 var mouse;
@@ -24,9 +29,11 @@ var kills = 0;
 
 var Char = new CharCreate(0, screen1.width, screen1.height);
 var Enemys = [];
+var powers = [];
 var Level = 1;
 var speed = 1;
 var color = "#3498db";
+var jk = -50;
 
 var RandomSayings = [];
 RandomSayings[0] = "Nobody likes you!";
@@ -37,6 +44,8 @@ RandomSayings[4] = "Was this worth time in your life?";
 RandomSayings[5] = "One day somthing nice will be said";
 RandomSayings[6] = "YOURE THE BEST";
 RandomSayings[7] = "BAAAAAAAAAAAAD";
+RandomSayings[8] = "Luke I am your dog...";
+RandomSayings[9] = "I lied about what I said...";
 
 
 
@@ -49,12 +58,17 @@ function InitGame () {
 
 	kills = 0;
 	Level = 1;
+	jk = -50;
 
 	Char = new CharCreate(0, screen1.width, screen1.height);
 	Enemys = [];
 	document.addEventListener("keydown", CheckKeyDown);
 	document.addEventListener("keyup", CheckKeyUp);
 	document.addEventListener("mousedown", Shoot);
+	finalform.style.left = (rect.left + screen1.width/2 - 130) + 'px';
+	finalbutt.addEventListener("onclick", function(){
+		console.log("Refreshed");
+	})
 }
 
 
@@ -116,6 +130,7 @@ function CheckKeyUp(e) {
     	}
 }
 
+
 function GetFrame(){
 	imgData = context.getImageData(0,0, screen1.width, screen1.height);
 }
@@ -156,6 +171,7 @@ function DrawChar(){
 	Char.DrawChar();
 }
 
+
 function Shoot(){
 	Bullets.push(new Bullet(mouse.x, mouse.y, Char.posX, Char.posY));
 	if (Char.Life){
@@ -194,7 +210,9 @@ function DrawEnemys(){
 		}
 		if (Enemys[j].Life != 1){
 			kills = kills + 1;
+			
 			Enemys.splice(j, 1);
+
 		}
 	}
 }
@@ -241,6 +259,15 @@ function GameOver() {
 	EOG.currentTime = 1;
 	EOG.play();
 	
+	var bMoveID = setInterval(function() {
+		finalform.style.visibility = "visible";
+		if (jk > 15){
+			clearInterval(bMoveID);
+		}
+		finalform.style.top = jk + "px";
+		jk = jk + 1;
+		hasmoved = 1;	
+	}, 1);
 }
 
 function SayMeanThings() {
@@ -270,12 +297,21 @@ function SayMeanThings() {
 	}else if (SayNum == 7) {
 		context.font = "20px Arial";
 		context.fillText(RandomSayings[SayNum], screen1.width/2 - 75, screen1.height - 40);
+	}else if (SayNum == 8) {
+		context.font = "20px Arial";
+		context.fillText(RandomSayings[SayNum], screen1.width/2 - 75, screen1.height - 40);
+	}else if (SayNum == 9) {
+		context.font = "20px Arial";
+		context.fillText(RandomSayings[SayNum], screen1.width/2 - 75, screen1.height - 35);
 	}
 } 
 
 
 function Resize(){
 	rect = screen1.getBoundingClientRect();
+	if (hasmoved){
+		finalform.style.left = (rect.left + screen1.width/2 - 130) + 'px';
+	}
 	console.log("resized");
 }
 
@@ -299,6 +335,7 @@ function GameLoop(){
 	DrawChar();
 	DrawBullets();
 	DrawEnemys();
+
 	if (!Char.Life){
 		GameOver();
 	}
@@ -316,4 +353,4 @@ window.addEventListener("resize", Resize);
 InitGame();
 GetFrame();
 var IntervalID = setInterval(GameLoop, 14);
-ClearFrame();
+

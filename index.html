@@ -46,15 +46,20 @@
 		td{
 			text-align: center;
 		}
-		form{
+		#score {
+			position: absolute;
 			visibility: hidden;
+		}
+		#subber {
+			padding: 5px;
+			font-family: arial;
 		}
 
 
 	</style>
 
 
-	<body>
+	<body ondragstart="return false;" ondrop="return false;" style="cursor:default;">
 		<canvas id="screen1"></canvas>
 		<canvas id="screen2"></canvas>
 		
@@ -65,9 +70,10 @@
 				<th>Kills:</th>
 			</tr>
 		</table>
-		<form>
-			<label>User:</label>
-			<input></input>
+		<form id="score">
+			<label>User Name:</label>
+			<input type="text" name="username"></input>
+			<button type="submit" name="submit" id="subber">Play Again!</button>
 		</form>
 
 

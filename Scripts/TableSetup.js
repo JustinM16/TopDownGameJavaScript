@@ -4,9 +4,7 @@ var row = table.insertRow(1);
 var posCell = row.insertCell(0);
 var	UserCell = row.insertCell(1);
 var KillCell = row.insertCell(2);
-
 var Scores = [10];
-
 
 
 
