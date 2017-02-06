@@ -5,13 +5,13 @@ var context2 = screen2.getContext('2d');
 context.fillStyle = "#bdc3c7";
 context.fillRect(0, 0, screen1.width, screen1.height);
 var imgData;
-var music = new Audio('Song.wav');
-var shot = new Audio('Shot.wav');
-var EOG = new Audio('EOG.mp3');
+var music = new Audio('Sounds/Song.wav');
+var shot = new Audio('Sounds/Shot.wav');
+var EOG = new Audio('Sounds/EOG.mp3');
 shot.volume = .3;
 music.volume = .5;
 EOG.volume = .5;
-var hasmoved = 0;
+
 
 var finalform = document.getElementById('score');
 var finalbutt = document.getElementById('subber');
@@ -238,9 +238,9 @@ function SpawnEnemy() {
 		speed = 3;
 		Level = 4;
 		color = "#9b59b6";
-	}else {
-		Enemys.push(new EnemyCreate(Char.posX, Char.posY, (Math.random()*(3000)-1500), (Math.random()*(3000)-1500), speed, color));
 	}
+	Enemys.push(new EnemyCreate(Char.posX, Char.posY, (Math.random()*(820*4)-(820*2)), (Math.random()*(640*4)-(640*2)), speed, color));
+	
 }
 
 function GameOver() {
@@ -266,7 +266,7 @@ function GameOver() {
 		}
 		finalform.style.top = jk + "px";
 		jk = jk + 1;
-		hasmoved = 1;	
+			
 	}, 1);
 }
 
@@ -309,13 +309,17 @@ function SayMeanThings() {
 
 function Resize(){
 	rect = screen1.getBoundingClientRect();
-	if (hasmoved){
-		finalform.style.left = (rect.left + screen1.width/2 - 130) + 'px';
-	}
+	
+	finalform.style.left = (rect.left + screen1.width/2 - 130) + 'px';
+	
 	console.log("resized");
 }
 
-
+function moveCamera(){
+	context.save();
+	context.translate((screen1.width/2)-Char.posX, (screen1.height/2)-Char.posY);
+	context.restore();
+}
 
 
 
@@ -332,6 +336,7 @@ function GameLoop(){
 	DrawChar();
 	DrawBullets();
 	DrawEnemys();
+	
 
 	if (!Char.Life){
 		GameOver();
