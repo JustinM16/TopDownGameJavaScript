@@ -357,3 +357,5 @@ window.addEventListener("resize", Resize);
 InitGame();
 GetFrame();
 var IntervalID = setInterval(GameLoop, 14);
+
+
