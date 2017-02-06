@@ -65,7 +65,7 @@ function InitGame () {
 	document.addEventListener("keydown", CheckKeyDown);
 	document.addEventListener("keyup", CheckKeyUp);
 	document.addEventListener("mousedown", Shoot);
-	finalform.style.left = (rect.left + screen1.width/2 - 130) + 'px';
+	finalform.style.left = (rect.left + screen1.width/2 - 170) + 'px';
 	finalbutt.addEventListener("onclick", function(){
 		console.log("Refreshed");
 	})
