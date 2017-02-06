@@ -315,9 +315,6 @@ function Resize(){
 	console.log("resized");
 }
 
-function EnterName(){
-	
-}
 
 
 
@@ -350,7 +347,8 @@ document.addEventListener("mousemove", GetMousePosition);
 window.addEventListener("resize", Resize);
 
 
+
+
 InitGame();
 GetFrame();
 var IntervalID = setInterval(GameLoop, 14);
-
