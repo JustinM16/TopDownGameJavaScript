@@ -47,11 +47,5 @@ body{ font-family: arial; margin:0;}
 HTML____________________
 <!DOCTYPE html><html>
  <head>  <title>Practice</title>  <script type="text/javascript" src="PageManager.js"></script>  <link rel="stylesheet" type="text/css" href="main.css">   </head>
- <body>  <div id="SitePage">   <div id="NavBar">     <div id="FreeCoin" class="NavButts" style="left: 0px" onclick="FreeClick()" onmouseover="LightUpF()" onmouseleave="UnLightF()">Free Coins</div>      <div id="CoinFlips" class="NavButts" style="left: 200px" onclick="FlipClick()" onmouseover="LightUpC()" onmouseleave="UnLightC()">Coin Flips</div>     <div id="Deposit" class="NavButts" style="left: 250px" onclick="DepClick()" onmouseover="LightUpD()" onmouseleave="UnLightD()">Deposit</div>     <div id="Withdraw" class="NavButts" style="left: 300px;" onclick="WithClick()" onmouseover="LightUpW()" onmouseleave="UnLightW()">Withdraw</div>     <div id="Login" class="NavButts" style="float: right;" onclick="LoginClick()" onmouseover="LightUpL()" onmouseleave="UnLightL()">Login</div>   </div>   
+ <body>  <div id="SitePage">   <div id="NavBar">     <div id="FreeCoin" class="NavButts" style="left: 0px" onclick="FreeClick()" onmouseover="LightUpF()" onmouseleave="UnLightF()">Free Coins</div>      <div id="CoinFlips" class="NavButts" style="left: 200px" onclick="FlipClick()" onmouseover="LightUpC()" onmouseleave="UnLightC()">Coin Flips</div>     <div id="Deposit" class="NavButts" style="left: 250px" onclick="DepClick()" onmouseover="LightUpD()" onmouseleave="UnLightD()">Deposit</div>     <div id="Withdraw" class="NavButts" style="left: 300px;" onclick="WithClick()" onmouseover="LightUpW()" onmouseleave="UnLightW()">Withdraw</div>     <div id="Login" class="NavButts" style="float: right;" onclick="LoginClick()" onmouseover="LightUpL()" onmouseleave="UnLightL()">Login</div>   </div>  </div>  </body></html>
 
-
-
-                                                  </div>  </body>
-
-
-</html>
