@@ -1,89 +1,36 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>A Game</title>
+	<head>  
+		<title>Practice</title>
+		<script type="text/javascript" src="PageManager.js"></script>
+		<link rel="stylesheet" type="text/css" href="main.css">   
 	</head>
-	<style>
-		body{
-			margin:0;
-		}
+	
+	<body>  
+		<div id="SitePage">   
+			<div id="NavBar">     
+				<div id="FreeCoin" class="NavButts" style="left: 0px" onclick="FreeClick()" onmouseover="LightUpF()" onmouseleave="UnLightF()">Free Coins</div>
+				<div id="CoinFlips" class="NavButts" style="left: 200px" onclick="FlipClick()" onmouseover="LightUpC()" onmouseleave="UnLightC()">Coin Flips</div> 
+				<div id="Deposit" class="NavButts" style="left: 250px" onclick="DepClick()" onmouseover="LightUpD()" onmouseleave="UnLightD()">Deposit</div>
+				<div id="Withdraw" class="NavButts" style="left: 300px;" onclick="WithClick()" onmouseover="LightUpW()" onmouseleave="UnLightW()">Withdraw</div> 
+				<div id="Login" class="NavButts" style="float: right;" onclick="LoginClick()" onmouseover="LightUpL()" onmouseleave="UnLightL()">Login</div> 
+			</div> 
+			
+			<div id="FreeCoinPage">
+				<form id="AffSec">
+					<h3>Affiliates:</h3>
+					<p>Enter an affiliate code to recieve .50 credits.</p>
+					<label>Redeem Code:</label>
+					<input type="text" name="RecCode"></input>
+				</form>
+						
+			</div>
+			
+			<div id="FlipPage">
 
-		#screen1 {
-			position: absolute;
-			left:0;
-			right:0;
-			margin:auto;
-			border-width: 2px;
-			border-color: black;
-			border-style: solid;
-		}
-
-		#screen2{
-			position: absolute;
-			left:0;
-			right:0;
-			margin:auto;
-			border-width: 2px;
-			border-color: black;
-			border-style: solid;
-		}
-
-		#hiScores{
-			position: absolute;
-			top:650px;
-			left:0;
-			right:0;
-			margin: auto;
-			font-family: arial;
-			width: 400px;
-			-webkit-touch-callout: none;
-			-webkit-user-select: none;
-			-khtml-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none;
-		}
-		td{
-			text-align: center;
-		}
-		#score {
-			position: absolute;
-			visibility: hidden;
-		}
-		#subber {
-			padding: 5px;
-			font-family: arial;
-		}
-
-
-	</style>
-
-
-	<body ondragstart="return false;" ondrop="return false;" style="cursor:default;">
-		<canvas id="screen1"></canvas>
-		<canvas id="screen2"></canvas>
-		<!--
-		<table id="hiScores">
-			<tr>
-				<th>Position:</th>
-				<th>User:</th>
-				<th>Kills:</th>
-			</tr>
-		</table>
--->
-		<form id="score">
-			<label style="font-family: Arial;">User Name:</label>
-			<input type="text" name="username"></input>
-			<button type="submit" name="submit" id="subber">Play Again!</button>
-		</form>
-
-
-		<script type="text/javascript" src="Scripts/TableSetup.js"></script>
-		<script type="text/javascript" src="Scripts/Screen.js"></script>
-		<script type="text/javascript" src="Scripts/Character.js"></script>
-		<script type="text/javascript" src="Scripts/Bullet.js"></script>
-		<script type="text/javascript" src="Scripts/Enemy.js"></script>
-		<script type="text/javascript" src="Scripts/Game.js"></script>
-
+						
+			</div>
+			
+		</div> 
 	</body>
 </html>
