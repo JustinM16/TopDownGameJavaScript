@@ -4,7 +4,6 @@ function EnemyCreate(charx, chary, startx, starty, speed, color){
 	this.radius = 20;
 	this.Speed = speed;
 	this.Life = 1;
-	//this.Color = Math.floor(Math.random()*0xFFFFFF).toString(16);
 	this.Color = color;
 
 	this.xSlope = charx - this.posX;
