@@ -13,8 +13,6 @@ music.volume = .5;
 EOG.volume = .5;
 
 
-var finalform = document.getElementById('score');
-var finalbutt = document.getElementById('subber');
 
 
 var rect = screen1.getBoundingClientRect();
@@ -65,7 +63,7 @@ function InitGame () {
 	document.addEventListener("keydown", CheckKeyDown);
 	document.addEventListener("keyup", CheckKeyUp);
 	document.addEventListener("mousedown", Shoot);
-	finalform.style.left = (rect.left + screen1.width/2 - 170) + 'px';
+	
 	finalbutt.addEventListener("onclick", function(){
 		console.log("Refreshed");
 	})
@@ -259,15 +257,7 @@ function GameOver() {
 	EOG.currentTime = 1;
 	EOG.play();
 	
-	var bMoveID = setInterval(function() {
-		finalform.style.visibility = "visible";
-		if (jk > 15){
-			clearInterval(bMoveID);
-		}
-		finalform.style.top = jk + "px";
-		jk = jk + 1;
-			
-	}, 1);
+
 }
 
 function SayMeanThings() {
@@ -309,9 +299,6 @@ function SayMeanThings() {
 
 function Resize(){
 	rect = screen1.getBoundingClientRect();
-	
-	finalform.style.left = (rect.left + screen1.width/2 - 130) + 'px';
-	
 	console.log("resized");
 }
 
