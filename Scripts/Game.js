@@ -315,16 +315,6 @@ function Resize(){
 	console.log("resized");
 }
 
-<<<<<<< HEAD
-=======
-function moveCamera(){
-	context.save();
-	context.translate((screen1.width/2)-Char.posX, (screen1.height/2)-Char.posY);
-	context.restore();
-}
->>>>>>> origin/master
-
-
 
 
 
