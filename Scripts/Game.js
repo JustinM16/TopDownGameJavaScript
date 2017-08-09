@@ -63,10 +63,7 @@ function InitGame () {
 	document.addEventListener("keydown", CheckKeyDown);
 	document.addEventListener("keyup", CheckKeyUp);
 	document.addEventListener("mousedown", Shoot);
-	
-	finalbutt.addEventListener("onclick", function(){
-		console.log("Refreshed");
-	})
+
 }
 
 
