@@ -8,9 +8,9 @@ var imgData;
 var music = new Audio('Sounds/Song.wav');
 var shot = new Audio('Sounds/Shot.wav');
 var EOG = new Audio('Sounds/EOG.mp3');
-shot.volume = .3;
-music.volume = .5;
-EOG.volume = .5;
+shot.volume = .05;
+music.volume = .0;
+EOG.volume = .2;
 
 
 
